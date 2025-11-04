@@ -1,0 +1,23 @@
+---
+- name: Install Node.js
+  apt:
+    name: nodejs
+    state: present
+
+- name: Install npm
+  apt:
+    name: npm
+    state: present
+
+- name: Copy app files
+  copy:
+    src: ../../app/
+    dest: /home/ubuntu/app/
+    owner: ubuntu
+    group: ubuntu
+    mode: '0755'
+
+- name: Start the web app
+  shell: |
+    cd /home/ubuntu/app
+    nohup node server.js > output.log 2>&1 &
